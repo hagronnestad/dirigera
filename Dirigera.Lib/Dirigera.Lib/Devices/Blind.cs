@@ -6,9 +6,9 @@ namespace Dirigera.Models
 {
     public class Blind : Device
     {
-        public int? BlindsTargetLevel { get; set; }
-        public int? BlindsCurrentLevel { get; set; }
-        public string? BlindsState { get; set; }
+        public int? BlindsTargetLevel { get; internal set; }
+        public int? BlindsCurrentLevel { get; internal set; }
+        public string? BlindsState { get; internal set; }
 
 
         internal Blind(DirigeraManager manager, DeviceDto dto) : base(manager, dto)

@@ -6,7 +6,7 @@ namespace Dirigera.Models
 {
     public class Outlet : Device
     {
-        public bool IsOn { get; set; }
+        public bool IsOn { get; internal set; }
 
         internal Outlet(DirigeraManager manager, DeviceDto dto) : base(manager, dto)
         {

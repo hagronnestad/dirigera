@@ -6,12 +6,12 @@ namespace Dirigera.Models
 {
     public class EnvironmentSensor : Device
     {
-        public int CurrentTemperature { get; set; }
-        public int CurrentRH { get; set; }
-        public int CurrentPM25 { get; set; }
-        public int MaxMeasuredPM25 { get; set; }
-        public int MinMeasuredPM25 { get; set; }
-        public int VocIndex { get; set; }
+        public int CurrentTemperature { get; internal set; }
+        public int CurrentRH { get; internal set; }
+        public int CurrentPM25 { get; internal set; }
+        public int MaxMeasuredPM25 { get; internal set; }
+        public int MinMeasuredPM25 { get; internal set; }
+        public int VocIndex { get; internal set; }
 
         internal EnvironmentSensor(DirigeraManager manager, DeviceDto dto) : base(manager, dto)
         {

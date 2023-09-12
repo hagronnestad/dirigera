@@ -7,31 +7,31 @@ namespace Dirigera.Lib.Devices.Base
     {
         internal readonly DirigeraManager _manager;
 
-        public string? Id { get; set; }
-        public string? Type { get; set; }
-        public string? DeviceType { get; set; }
-        public bool IsReachable { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset LastSeen { get; set; }
-        public Dictionary<string, JsonElement>? Attributes { get; set; }
+        public string? Id { get; internal set; }
+        public string? Type { get; internal set; }
+        public string? DeviceType { get; internal set; }
+        public bool IsReachable { get; internal set; }
+        public DateTimeOffset CreatedAt { get; internal set; }
+        public DateTimeOffset LastSeen { get; internal set; }
+        public Dictionary<string, JsonElement>? Attributes { get; internal set; }
 
-        public string? Name { get; set; }
-        public string? Model { get; set; }
-        public string? Manufacturer { get; set; }
-        public string? FirmwareVersion { get; set; }
-        public string? HardwareVersion { get; set; }
-        public string? SerialNumber { get; set; }
-        public string? ProductCode { get; set; }
-        public int? BatteryPercentage { get; set; }
-        public string? OtaStatus { get; set; }
-        public string? OtaState { get; set; }
-        public int? OtaProgress { get; set; }
-        public string? OtaPolicy { get; set; }
-        public string? OtaScheduleStart { get; set; }
-        public string? OtaScheduleEnd { get; set; }
+        public string? Name { get; internal set; }
+        public string? Model { get; internal set; }
+        public string? Manufacturer { get; internal set; }
+        public string? FirmwareVersion { get; internal set; }
+        public string? HardwareVersion { get; internal set; }
+        public string? SerialNumber { get; internal set; }
+        public string? ProductCode { get; internal set; }
+        public int? BatteryPercentage { get; internal set; }
+        public string? OtaStatus { get; internal set; }
+        public string? OtaState { get; internal set; }
+        public int? OtaProgress { get; internal set; }
+        public string? OtaPolicy { get; internal set; }
+        public string? OtaScheduleStart { get; internal set; }
+        public string? OtaScheduleEnd { get; internal set; }
 
-        public string? RoomName { get; set; }
-        public string? RoomId { get; set; }
+        public string? RoomName { get; internal set; }
+        public string? RoomId { get; internal set; }
 
 
         internal Device(DirigeraManager manager, DeviceDto dto)
