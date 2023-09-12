@@ -5,9 +5,6 @@ This C# .NET library allows you to interact with the IKEA DIRIGERA hub.
 - [Unofficial IKEA DIRIGERA Library](#unofficial-ikea-dirigera-library)
   - [Nuget](#nuget)
     - [Publish Nuget Package](#publish-nuget-package)
-  - [More Information](#more-information)
-    - [Website](#website)
-    - [GitHub](#github)
   - [Disclaimer](#disclaimer)
 
 ## Nuget
@@ -29,15 +26,6 @@ paket add Dirigera.Lib --version 1.0.1
 
 ### Publish Nuget Package
 Create a new GitHub Release with a tag to trigger the `Nuget Release`-action.
-
-
-## More Information
-
-### Website
-https://heinandre.no/dirigera/
-
-### GitHub
-https://github.com/hagronnestad/dirigera
 
 
 ## Disclaimer
