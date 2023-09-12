@@ -1,6 +1,8 @@
 ﻿using Dirigera.Lib.Api;
+using Dirigera.Lib.Api.Dto.Base;
 using Dirigera.Lib.Constants;
 using Dirigera.Lib.Devices;
+using Dirigera.Lib.Devices.Base;
 using Dirigera.Models;
 using System.Drawing;
 using Zeroconf;
@@ -14,9 +16,14 @@ namespace Dirigera.Lib
 
         private readonly ApiClient _apiClient;
 
+        internal ApiClient ApiClient => _apiClient;
+
         public Hub? Hub { get; set; }
-        public List<Light> Lights { get; set; } = new();
         public List<Room> Rooms { get; set; } = new();
+        public List<Device> Devices { get; set; } = new();
+        public List<Light> Lights { get; set; } = new();
+        public List<Blind> Blinds { get; set; } = new();
+        public List<EnvironmentSensor> EnvironmentSensors { get; set; } = new();
 
         public string IpAddress { get; }
 
@@ -51,12 +58,28 @@ namespace Dirigera.Lib
             var devices = await _apiClient.GetDevices();
             if (devices is null) return;
 
-            var lights = devices
-                .Where(x => x.DeviceType == DeviceType.LIGHT)
-                .Select(x => new Light(this, x))
+            Devices = devices
+                .Select(x => CreateDeviceByType(x))
                 .ToList();
 
-             Lights = lights;
+            Lights = Devices.Where(x => x is Light).Select(x => (Light)x).ToList();
+            Blinds = Devices.Where(x => x is Blind).Select(x => (Blind)x).ToList();
+            EnvironmentSensors = Devices.Where(x => x is EnvironmentSensor).Select(x => (EnvironmentSensor)x).ToList();
+        }
+
+        private Device CreateDeviceByType(DeviceDto dto)
+        {
+            switch (dto.DeviceType)
+            {
+                case DeviceType.LIGHT:
+                    return new Light(this, dto);
+                case DeviceType.BLINDS:
+                    return new Blind(this, dto);
+                case DeviceType.ENVIRONMENT_SENSORS:
+                    return new EnvironmentSensor(this, dto);
+                default:
+                    return new Device(this, dto);
+            }
         }
 
         private async Task GetRooms()
@@ -146,6 +169,22 @@ namespace Dirigera.Lib
             await SetLightColor(room, color.GetHue(), color.GetSaturation());
         }
 
+        public async Task SetBlind(Room room, int level)
+        {
+            await _apiClient.PatchAttributesRoom(room.Id, new Dictionary<string, object>()
+            {
+                { "blindsTargetLevel", level }
+            });
+        }
+
+        public async Task SetBlind(Blind blind, int level)
+        {
+            await _apiClient.PatchAttributes(blind.Id, new Dictionary<string, object>()
+            {
+                { "blindsTargetLevel", level }
+            });
+        }
+
 
         /// <summary>
         /// Create a <see cref="DirigeraManager"/> object by automatically discovering your IKEA DIRIGERA hub on your network.
@@ -154,7 +193,7 @@ namespace Dirigera.Lib
         /// <param name="timeout">The amount of time (in milliseconds) allowed for discovery.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async static Task<DirigeraManager> Discover(string? authToken = null, int timeout = 5000)
+        public async static Task<DirigeraManager> Discover(string? authToken = null, int timeout = 1000)
         {
             var results = await ZeroconfResolver.ResolveAsync("_ihsp._tcp.local.", TimeSpan.FromMilliseconds(timeout));
 

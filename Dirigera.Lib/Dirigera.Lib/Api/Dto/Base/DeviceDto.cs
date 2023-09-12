@@ -2,7 +2,7 @@
 
 namespace Dirigera.Lib.Api.Dto.Base
 {
-    public class DeviceDto
+    internal class DeviceDto
     {
         public string Id { get; set; } = "";
         public string Type { get; set; } = "";

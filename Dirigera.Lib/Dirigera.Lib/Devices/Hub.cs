@@ -7,7 +7,7 @@ namespace Dirigera.Lib.Devices
     {
         public string? ApiVersion { get; set; }
 
-        public Hub(DirigeraManager dirigeraManager, HubDto dto) : base(dirigeraManager, dto)
+        internal Hub(DirigeraManager dirigeraManager, HubDto dto) : base(dirigeraManager, dto)
         {
             ApiVersion = dto.ApiVersion;
         }

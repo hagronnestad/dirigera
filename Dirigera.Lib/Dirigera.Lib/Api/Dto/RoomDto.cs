@@ -1,6 +1,6 @@
 ﻿namespace Dirigera.Lib.Api.Dto
 {
-    public class RoomDto
+    internal class RoomDto
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";

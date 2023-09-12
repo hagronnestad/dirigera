@@ -2,7 +2,7 @@
 
 namespace Dirigera.Lib.Api.Dto
 {
-    internal class LightDto : DeviceDto
+    internal class BlindDto : DeviceDto
     {
         
     }

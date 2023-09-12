@@ -2,7 +2,7 @@
 
 namespace Dirigera.Lib.Api.Dto
 {
-    public class HubDto : DeviceDto
+    internal class HubDto : DeviceDto
     {
         public string? ApiVersion { get; set; }
     }

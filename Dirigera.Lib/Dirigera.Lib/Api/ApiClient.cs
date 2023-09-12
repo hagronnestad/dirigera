@@ -81,6 +81,13 @@ namespace Dirigera.Lib.Api
             return res;
         }
 
+        public async Task<T> GetDevice<T>(string id)
+        {
+            string url = $"{_apiBaseUrl}/devices/{id}";
+            var res = await _httpClient.GetFromJsonAsync<T>(url);
+            return res;
+        }
+
         public async Task<HttpResponseMessage> PatchAttributes(string deviceId, Dictionary<string, object> attributes)
         {
             string url = $"{_apiBaseUrl}/devices/{deviceId}";
