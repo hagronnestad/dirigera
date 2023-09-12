@@ -23,6 +23,7 @@ namespace Dirigera.Lib
         public List<Device> Devices { get; set; } = new();
         public List<Light> Lights { get; set; } = new();
         public List<Blind> Blinds { get; set; } = new();
+        public List<Outlet> Outlets { get; set; } = new();
         public List<EnvironmentSensor> EnvironmentSensors { get; set; } = new();
 
         public string IpAddress { get; }
@@ -64,6 +65,7 @@ namespace Dirigera.Lib
 
             Lights = Devices.Where(x => x is Light).Select(x => (Light)x).ToList();
             Blinds = Devices.Where(x => x is Blind).Select(x => (Blind)x).ToList();
+            Outlets = Devices.Where(x => x is Outlet).Select(x => (Outlet)x).ToList();
             EnvironmentSensors = Devices.Where(x => x is EnvironmentSensor).Select(x => (EnvironmentSensor)x).ToList();
         }
 
@@ -75,6 +77,8 @@ namespace Dirigera.Lib
                     return new Light(this, dto);
                 case DeviceType.BLINDS:
                     return new Blind(this, dto);
+                case DeviceType.OUTLET:
+                    return new Outlet(this, dto);
                 case DeviceType.ENVIRONMENT_SENSORS:
                     return new EnvironmentSensor(this, dto);
                 default:
@@ -185,6 +189,14 @@ namespace Dirigera.Lib
             });
         }
 
+        public async Task SetOutlet(Outlet outlet, bool state)
+        {
+            await _apiClient.PatchAttributes(outlet.Id, new Dictionary<string, object>()
+            {
+                { "isOn", state }
+            });
+        }
+
 
         /// <summary>
         /// Create a <see cref="DirigeraManager"/> object by automatically discovering your IKEA DIRIGERA hub on your network.
@@ -273,7 +285,5 @@ namespace Dirigera.Lib
                 return null;
             }
         }
-
-
     }
 }
