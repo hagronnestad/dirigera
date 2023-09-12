@@ -1,6 +1,8 @@
 ﻿using Dirigera.Lib;
 using Dirigera.Lib.Api.Dto.Base;
+using Dirigera.Lib.Constants;
 using Dirigera.Lib.Devices.Base;
+using System.Drawing;
 
 namespace Dirigera.Models
 {
@@ -36,6 +38,31 @@ namespace Dirigera.Models
             await Refresh();
             await _manager.SetLightState(this, !IsOn);
             await Refresh();
+        }
+
+        public async Task SetDimmer(int dimmer)
+        {
+            await _manager.SetLightDimmer(this, dimmer);
+        }
+
+        public async Task SetColorTemperature(int colorTemperatur)
+        {
+            await _manager.SetLightColorTemperature(this, colorTemperatur);
+        }
+
+        public async Task SetColorTemperature(ColorTemperature colorTemperatur)
+        {
+            await _manager.SetLightColorTemperature(this, (int)colorTemperatur);
+        }
+
+        public async Task SetColor(Color color)
+        {
+            await _manager.SetLightColor(this, color);
+        }
+
+        public async Task SetColor(double hue, double saturation)
+        {
+            await _manager.SetLightColor(this, hue, saturation);
         }
 
         internal override void PopulateFromDto(DeviceDto dto)
