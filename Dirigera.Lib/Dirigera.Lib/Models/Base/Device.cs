@@ -1,7 +1,7 @@
 ﻿using Dirigera.Lib.Api.Dto.Base;
 using System.Text.Json;
 
-namespace Dirigera.Lib.Devices.Base
+namespace Dirigera.Lib.Models.Base
 {
     public class Device
     {

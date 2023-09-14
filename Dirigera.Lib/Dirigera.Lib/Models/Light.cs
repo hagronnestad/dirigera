@@ -1,7 +1,7 @@
 ﻿using Dirigera.Lib;
 using Dirigera.Lib.Api.Dto.Base;
 using Dirigera.Lib.Constants;
-using Dirigera.Lib.Devices.Base;
+using Dirigera.Lib.Models.Base;
 using System.Drawing;
 
 namespace Dirigera.Models

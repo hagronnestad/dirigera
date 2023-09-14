@@ -1,6 +1,6 @@
 ﻿using Dirigera.Lib;
 using Dirigera.Lib.Api.Dto.Base;
-using Dirigera.Lib.Devices.Base;
+using Dirigera.Lib.Models.Base;
 
 namespace Dirigera.Models
 {

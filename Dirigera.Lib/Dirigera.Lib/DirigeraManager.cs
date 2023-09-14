@@ -1,8 +1,8 @@
 ﻿using Dirigera.Lib.Api;
 using Dirigera.Lib.Api.Dto.Base;
 using Dirigera.Lib.Constants;
-using Dirigera.Lib.Devices;
-using Dirigera.Lib.Devices.Base;
+using Dirigera.Lib.Models;
+using Dirigera.Lib.Models.Base;
 using Dirigera.Models;
 using System.Drawing;
 using Zeroconf;
@@ -20,6 +20,7 @@ namespace Dirigera.Lib
 
         public Hub? Hub { get; set; }
         public List<Room> Rooms { get; set; } = new();
+        public List<Scene> Scenes { get; set; } = new();
         public List<Device> Devices { get; set; } = new();
         public List<Light> Lights { get; set; } = new();
         public List<Blind> Blinds { get; set; } = new();
@@ -40,11 +41,12 @@ namespace Dirigera.Lib
             _apiClient = new ApiClient(ipAddress, authToken);
         }
 
-        public async Task Refresh()
+        public async Task LoadAll()
         {
             await GetHubDetails();
             await GetDevices();
             await GetRooms();
+            await GetScenes();
         }
 
 
@@ -88,6 +90,27 @@ namespace Dirigera.Lib
 
             Rooms = rooms
                 .Select(x => new Room(x.Id, x.Name))
+                .Where(x => x != null)
+                .ToList();
+        }
+
+        private async Task GetScenes()
+        {
+            var scenes = await _apiClient.GetScenes();
+            if (scenes is null) return;
+
+            Scenes = scenes
+                .Select(x => new Scene(this)
+                {
+                    Id = x.Id,
+                    Name = x.Info?.Name,
+                    Icon = x.Info?.Icon,
+                    Type = x.Type,
+                    CreatedAt = x.CreatedAt,
+                    LastCompleted = x.LastCompleted,
+                    LastTriggered = x.LastTriggered,
+                    UndoAllowedDuration = x.UndoAllowedDuration
+                })
                 .Where(x => x != null)
                 .ToList();
         }
@@ -201,6 +224,18 @@ namespace Dirigera.Lib
             {
                 { "isOn", state }
             });
+        }
+
+        public async Task TriggerScene(Scene scene)
+        {
+            if (scene is null || scene.Id is null) return;
+            await _apiClient.TriggerScene(scene.Id);
+        }
+
+        public async Task UndoScene(Scene scene)
+        {
+            if (scene is null || scene.Id is null) return;
+            await _apiClient.UndoScene(scene.Id);
         }
 
 

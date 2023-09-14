@@ -1,6 +1,4 @@
-﻿using Dirigera.Lib.Api.Dto;
-
-namespace Dirigera.Lib.Devices
+﻿namespace Dirigera.Lib.Models
 {
     public class Room
     {

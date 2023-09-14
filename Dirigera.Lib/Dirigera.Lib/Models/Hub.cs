@@ -1,7 +1,7 @@
 ﻿using Dirigera.Lib.Api.Dto;
-using Dirigera.Lib.Devices.Base;
+using Dirigera.Lib.Models.Base;
 
-namespace Dirigera.Lib.Devices
+namespace Dirigera.Lib.Models
 {
     public class Hub : Device
     {

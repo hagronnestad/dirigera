@@ -81,6 +81,13 @@ namespace Dirigera.Lib.Api
             return res;
         }
 
+        public async Task<List<SceneDto>?> GetScenes()
+        {
+            string url = $"{_apiBaseUrl}/scenes";
+            var res = await _httpClient.GetFromJsonAsync<List<SceneDto>>(url);
+            return res;
+        }
+
         public async Task<T?> GetDevice<T>(string id)
         {
             string url = $"{_apiBaseUrl}/devices/{id}";
@@ -117,6 +124,21 @@ namespace Dirigera.Lib.Api
             var res = await _httpClient.PatchAsJsonAsync(url, data);
             return res;
         }
+
+        public async Task<HttpResponseMessage> TriggerScene(string sceneId)
+        {
+            string url = $"{_apiBaseUrl}/scenes/{sceneId}/trigger";
+            var res = await _httpClient.PostAsync(url, null);
+            return res;
+        }
+
+        public async Task<HttpResponseMessage> UndoScene(string sceneId)
+        {
+            string url = $"{_apiBaseUrl}/scenes/{sceneId}/undo";
+            var res = await _httpClient.PostAsync(url, null);
+            return res;
+        }
+
 
         public async Task<string?> SendChallenge(string codeVerifier)
         {
