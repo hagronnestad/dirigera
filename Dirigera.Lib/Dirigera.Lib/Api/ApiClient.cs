@@ -1,4 +1,4 @@
-﻿using Dirigera.Lib.Api.Dto;
+using Dirigera.Lib.Api.Dto;
 using Dirigera.Lib.Api.Dto.Base;
 using System.Net;
 using System.Net.Http.Headers;
@@ -103,9 +103,9 @@ namespace Dirigera.Lib.Api
             return res;
         }
 
-        public async Task<HttpResponseMessage> PatchAttributesRoom(string roomId, Dictionary<string, object> attributes)
+        public async Task<HttpResponseMessage> PatchAttributesRoom(string roomId, Dictionary<string, object> attributes, string deviceType)
         {
-            string url = $"{_apiBaseUrl}/devices/room/{roomId}";
+            string url = $"{_apiBaseUrl}/devices/room/{roomId}?deviceType={deviceType}";
 
             var data = new List<object>()
             {

@@ -1,4 +1,4 @@
-﻿using Dirigera.Lib.Api;
+using Dirigera.Lib.Api;
 using Dirigera.Lib.Api.Dto.Base;
 using Dirigera.Lib.Constants;
 using Dirigera.Lib.Devices;
@@ -140,7 +140,8 @@ namespace Dirigera.Lib
             await _apiClient.PatchAttributesRoom(room.Id, new Dictionary<string, object>()
             {
                 { "isOn", state }
-            });
+            },
+            DeviceType.LIGHT);
         }
 
         public async Task SetLightDimmer(Room room, int dimmer)
@@ -148,7 +149,8 @@ namespace Dirigera.Lib
             await _apiClient.PatchAttributesRoom(room.Id, new Dictionary<string, object>()
             {
                 { "lightLevel", dimmer }
-            });
+            },
+            DeviceType.LIGHT);
         }
 
         public async Task SetLightColorTemperature(Room room, int colorTemperature)
@@ -156,7 +158,8 @@ namespace Dirigera.Lib
             await _apiClient.PatchAttributesRoom(room.Id, new Dictionary<string, object>()
             {
                 { "colorTemperature", colorTemperature }
-            });
+            },
+            DeviceType.LIGHT);
         }
 
         public async Task SetLightColor(Room room, double hue, double saturation)
@@ -165,7 +168,8 @@ namespace Dirigera.Lib
             {
                 { "colorHue", hue },
                 { "colorSaturation", saturation }
-            });
+            },
+            DeviceType.LIGHT);
         }
 
         public async Task SetLightColor(Room room, Color color)
@@ -178,7 +182,8 @@ namespace Dirigera.Lib
             await _apiClient.PatchAttributesRoom(room.Id, new Dictionary<string, object>()
             {
                 { "blindsTargetLevel", level }
-            });
+            },
+            DeviceType.LIGHT);
         }
 
         public async Task SetBlind(Blind blind, int level)
