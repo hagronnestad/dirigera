@@ -1,4 +1,4 @@
-using Dirigera.Lib.Api;
+﻿using Dirigera.Lib.Api;
 using Dirigera.Lib.Api.Dto.Base;
 using Dirigera.Lib.Constants;
 using Dirigera.Lib.Devices;
@@ -71,19 +71,14 @@ namespace Dirigera.Lib
 
         private Device CreateDeviceByType(DeviceDto dto)
         {
-            switch (dto.DeviceType)
+            return dto.DeviceType switch
             {
-                case DeviceType.LIGHT:
-                    return new Light(this, dto);
-                case DeviceType.BLINDS:
-                    return new Blind(this, dto);
-                case DeviceType.OUTLET:
-                    return new Outlet(this, dto);
-                case DeviceType.ENVIRONMENT_SENSORS:
-                    return new EnvironmentSensor(this, dto);
-                default:
-                    return new Device(this, dto);
-            }
+                DeviceType.LIGHT => new Light(this, dto),
+                DeviceType.BLINDS => new Blind(this, dto),
+                DeviceType.OUTLET => new Outlet(this, dto),
+                DeviceType.ENVIRONMENT_SENSORS => new EnvironmentSensor(this, dto),
+                _ => new Device(this, dto),
+            };
         }
 
         private async Task GetRooms()
@@ -99,6 +94,7 @@ namespace Dirigera.Lib
 
         public async Task SetLightState(Light light, bool state)
         {
+            if (light is null || light.Id is null) return;
             await _apiClient.PatchAttributes(light.Id, new Dictionary<string, object>()
             {
                 { "isOn", state }
@@ -107,6 +103,7 @@ namespace Dirigera.Lib
 
         public async Task SetLightDimmer(Light light, int dimmer)
         {
+            if (light is null || light.Id is null) return;
             await _apiClient.PatchAttributes(light.Id, new Dictionary<string, object>()
             {
                 { "lightLevel", dimmer }
@@ -115,6 +112,7 @@ namespace Dirigera.Lib
 
         public async Task SetLightColorTemperature(Light light, int colorTemperature)
         {
+            if (light is null || light.Id is null) return;
             await _apiClient.PatchAttributes(light.Id, new Dictionary<string, object>()
             {
                 { "colorTemperature", colorTemperature }
@@ -123,6 +121,7 @@ namespace Dirigera.Lib
 
         public async Task SetLightColor(Light light, double hue, double saturation)
         {
+            if (light is null || light.Id is null) return;
             await _apiClient.PatchAttributes(light.Id, new Dictionary<string, object>()
             {
                 { "colorHue", hue },
@@ -188,6 +187,7 @@ namespace Dirigera.Lib
 
         public async Task SetBlind(Blind blind, int level)
         {
+            if (blind is null || blind.Id is null) return;
             await _apiClient.PatchAttributes(blind.Id, new Dictionary<string, object>()
             {
                 { "blindsTargetLevel", level }
@@ -196,6 +196,7 @@ namespace Dirigera.Lib
 
         public async Task SetOutlet(Outlet outlet, bool state)
         {
+            if (outlet is null || outlet.Id is null) return;
             await _apiClient.PatchAttributes(outlet.Id, new Dictionary<string, object>()
             {
                 { "isOn", state }

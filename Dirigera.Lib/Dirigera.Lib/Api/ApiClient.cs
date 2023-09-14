@@ -1,4 +1,4 @@
-using Dirigera.Lib.Api.Dto;
+﻿using Dirigera.Lib.Api.Dto;
 using Dirigera.Lib.Api.Dto.Base;
 using System.Net;
 using System.Net.Http.Headers;
@@ -14,7 +14,7 @@ namespace Dirigera.Lib.Api
         private const string PKCE_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
 
         private readonly string _ip;
-        private string _apiBaseUrl;
+        private readonly string _apiBaseUrl;
         private string? _authToken;
 
         public string? AuthToken
@@ -29,7 +29,7 @@ namespace Dirigera.Lib.Api
             }
         }
 
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public ApiClient(string ip, string? authToken = null)
         {
@@ -81,7 +81,7 @@ namespace Dirigera.Lib.Api
             return res;
         }
 
-        public async Task<T> GetDevice<T>(string id)
+        public async Task<T?> GetDevice<T>(string id)
         {
             string url = $"{_apiBaseUrl}/devices/{id}";
             var res = await _httpClient.GetFromJsonAsync<T>(url);
