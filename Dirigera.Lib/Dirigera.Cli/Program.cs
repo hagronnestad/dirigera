@@ -1,4 +1,4 @@
-﻿using Dirigera.Lib;
+using Dirigera.Lib;
 using Dirigera.Lib.Extensions;
 
 namespace Dirigera.Cli
@@ -13,7 +13,7 @@ namespace Dirigera.Cli
                 Console.WriteLine($"IpAddress: {dirigera.IpAddress}");
                 Console.WriteLine($"Authenticated?: {await dirigera.IsAuthenticated()}");
 
-                await dirigera.Refresh();
+                await dirigera.LoadAll();
                 Console.Write(dirigera.Hub?.ToJson());
             }
             else
