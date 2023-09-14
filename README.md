@@ -3,9 +3,16 @@
 This C# .NET library allows you to interact with the IKEA DIRIGERA hub.
 
 - [Unofficial IKEA DIRIGERA Library](#unofficial-ikea-dirigera-library)
+  - [Example Program](#example-program)
   - [Nuget](#nuget)
     - [Publish Nuget Package](#publish-nuget-package)
   - [Disclaimer](#disclaimer)
+
+
+## Example Program
+
+[An example program can be found here.](Dirigera.Lib/Dirigera.Cli/Program.cs)
+
 
 ## Nuget
 
